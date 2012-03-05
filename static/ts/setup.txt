@@ -1,0 +1,734 @@
+###
+# This is the default TS-setup for the new wec_knowledgebase standard template: EXT:wec_knowledgebase/pi1/wec_kb.tmpl
+#
+# (see Section Reference in the manual for more options & parameters)
+#
+# wec_knowledgebase v0.9.0
+###
+
+# Includes the newsLib:
+includeLibs.ts_wecknowledgebase = EXT:wec_knowledgebase/pi1/class.tx_wecknowledgebase_pi1.php
+
+plugin.tx_wecknowledgebase_pi1 = USER
+
+plugin.tx_wecknowledgebase_pi1 {
+  userFunc = tx_wecknowledgebase_pi1->main_news
+
+  isLoaded = yes
+
+  # template file
+  templateFile = {$plugin.tx_wecknowledgebase_pi1.templateFile}
+
+  # page to get the newsitems from -> "Starting point"
+  pid_list = {$plugin.tx_wecknowledgebase_pi1.pid_list}
+
+  # page for the Single view  (changed in version 1.6.0 - PIDitemDisplay don't work anymore)
+  singlePid = {$plugin.tx_wecknowledgebase_pi1.singlePid}
+
+  # page id for the archive link in "LATEST" template
+  archiveTypoLink.parameter = {$plugin.tx_wecknowledgebase_pi1.archiveTypoLink.parameter}
+
+  recursive = 2
+  code.field = select_key
+  allowCaching = {$plugin.tx_wecknowledgebase_pi1.allowCaching}
+  limit = {$plugin.tx_wecknowledgebase_pi1.limit}
+  latestLimit = {$plugin.tx_wecknowledgebase_pi1.latestLimit}
+  backPid = {$plugin.tx_wecknowledgebase_pi1.backPid}
+
+  # Search
+  searchPid = {$plugin.tx_wecknowledgebase_pi1.searchPid}
+  emptySearchAtStart = 1
+
+  # parse the 'back to list' link through htmlspecialchars()
+  hscBackLink = 1
+
+  # substitute pagetitle with title of news article
+  substitutePagetitle = 1
+
+  useHRDates = {$plugin.tx_wecknowledgebase_pi1.useHRDates}
+
+  # KNOWLEDGEBASE
+  tutorial_pid =	{$plugin.tx_wecknowledgebase_pi1.tutorial_pid}
+  tutorial_list_id = {$plugin.tx_wecknowledgebase_pi1.tutorial_list_id}
+  btnBackColor =	{$plugin.tx_wecknowledgebase_pi1.btnBackColor}
+  btnColor =		{$plugin.tx_wecknowledgebase_pi1.btnColor}
+  btnHoverBackColor ={$plugin.tx_wecknowledgebase_pi1.btnHoverBackColor}
+  listHeaderBackColor ={$plugin.tx_wecknowledgebase_pi1.listHeaderBackColor}
+  catItemTinyColor ={$plugin.tx_wecknowledgebase_pi1.catItemTinyColor}
+  formBackColor =	{$plugin.tx_wecknowledgebase_pi1.formBackColor}
+  sidebarBackColor ={$plugin.tx_wecknowledgebase_pi1.sidebarBackColor}
+  sidebarHeaderBackColor ={$plugin.tx_wecknowledgebase_pi1.sidebarHeaderBackColor}
+  commentItemBackColor ={$plugin.tx_wecknowledgebase_pi1.commentItemBackColor}
+  catMenuWidth =	{$plugin.tx_wecknowledgebase_pi1.catMenuWidth}
+  defaultTutorialIcon ={$plugin.tx_wecknowledgebase_pi1.defaultTutorialIcon}
+  popularListIcon =	{$plugin.tx_wecknowledgebase_pi1.popularListIcon}
+  latestListIcon =	{$plugin.tx_wecknowledgebase_pi1.latestListIcon}
+  normalListIcon =	{$plugin.tx_wecknowledgebase_pi1.normalListIcon}
+  spamWords 	 =	{$plugin.tx_wecknowledgebase_pi1.spamWords}
+  addSpamWords	 =	{$plugin.tx_wecknowledgebase_pi1.addSpamWords}
+  popularLimit	 =	{$plugin.tx_wecknowledgebase_pi1.popularLimit}
+  noRoot_catmenu = {$plugin.tx_wecknowledgebase_pi1.noRoot_catmenu}
+  noTop_catdropdown = {$plugin.tx_wecknowledgebase_pi1.noTop_catdropdown}
+  catSelectorTargetPid = {$plugin.tx_wecknowledgebase_pi1.catSelectorTargetPid}
+  noPageBrowser_latestpopular = 1
+  #
+
+  noNewsToListMsg_stdWrap.wrap = <p style="clear:both;padding-top:5px;">|</p>
+
+  versionPreviewMessage_stdWrap.wrap = <div style="border:2px solid red;padding:10px;margin:10px 0px 10px 0px;"><img src="t3lib/gfx/icon_note.gif" class="absmiddle" alt="" height="16" width="18">&nbsp;<strong>|</strong></div>
+  versionPreviewMessageLinkToOriginal_stdWrap.wrap = &nbsp;<span style="font-weight:normal;">|</span>
+
+  # Rendering of news items. re-use the RTE parseFunc configuration for normal content
+  general_stdWrap {
+    parseFunc < tt_content.text.20.parseFunc
+  }
+
+  # Pagebrowser settings
+  usePiBasePagebrowser = 0
+  pageBrowser {
+    maxPages = 7
+    showResultCount = 1
+    showPBrowserText = 0
+    dontLinkActivePage = 1
+    tableParams = cellpadding="2" align="center"
+
+    # settings for the extended pageBrowser from TYPO3 3.8.0
+    showFirstLast = 1
+    pagefloat = center
+    showRange = 1
+    disabledLinkWrap = <span style="color:#bbb;">|</span>
+    inactiveLinkWrap = |
+    activeLinkWrap = <strong>|</strong>
+    LinksWrap =|
+    showResultsWrap = |<br />
+    showResultsNumbersWrap = |
+    browseBoxWrap =
+    browseLinksWrap = |
+  }
+
+  # Display language labels and/or flags
+  showLangLabels = 0
+  showFlags = 0
+  flagImage {
+    file.maxW = 16
+  }
+
+  # Category settings
+  catImageMode = {$plugin.tx_wecknowledgebase_pi1.catImageMode}
+  catTextMode = {$plugin.tx_wecknowledgebase_pi1.catTextMode}
+  maxCatImages = 10
+  maxCatTexts = 10
+
+  # category modes:
+  # 0 = don't care about category selections
+  # 1 = display selected categories
+  # -1 = display deselected categories
+  categoryMode = 0
+
+  catImageMaxWidth = 25
+  catImageMaxHeight = 25
+
+  useSubCategories = {$plugin.tx_wecknowledgebase_pi1.useSubCategories}
+  displaySubCategories = {$plugin.tx_wecknowledgebase_pi1.displaySubCategories}
+  showRelatedNewsByCategory = {$plugin.tx_wecknowledgebase_pi1.showRelatedNewsByCategory}
+  useSPidFromCategory = {$plugin.tx_wecknowledgebase_pi1.useSPidFromCategory}
+
+  categoryDivider = ,
+  categoryDivider_stdWrap.noTrimWrap = || |
+
+  # - - - - - - - - -  catRootline settings  - - - - - - - - - - - #
+  catRootline {
+  	showCatRootline = {$plugin.tt_news.showCatRootline}
+  	catRootline_stdWrap.wrap = <div class="news-catRootline">|</div>
+
+	# if titles are linked the link points to the page which is configured as category shortcut
+	linkTitles = 1
+	title_stdWrap.wrap =
+	divider = &nbsp;&gt;&nbsp;
+  }
+
+  # - - - - - - - - -  Archive settings  - - - - - - - - - - - #
+
+  datetimeDaysToArchive = {$plugin.tx_wecknowledgebase_pi1.datetimeDaysToArchive}
+  enableArchiveDate = {$plugin.tx_wecknowledgebase_pi1.enableArchiveDate}
+  pageTypoLink.parameter.current = 1
+
+  reverseAMenu = 1
+  archiveMenuNoEmpty = 1
+
+  # the Condition in the following COA highlights the active Archive month
+  archiveTitleCObject = COA
+  archiveTitleCObject {
+    10 = TEXT
+    10 {
+       field = start
+       strftime = %B %Y
+       wrap = <strong>|</strong>
+       if {
+          value.field = start
+          equals.data = GPvar:tx_wecknowledgebase_pi1|pS
+        }
+     }
+    20 = TEXT
+    20 {
+       field = start
+       strftime = %B %Y
+       if {
+          value.field = start
+          equals.data = GPvar:tx_wecknowledgebase_pi1|pS
+          negate = 1
+        }
+     }
+  }
+  archiveEmptyMsg_stdWrap.wrap =
+  searchEmptyMsg_stdWrap.wrap =
+  noNewsIdMsg_stdWrap.wrap =
+
+
+  # - - - - - - - - -    news Files:    - - - - - - - - - - -  #
+
+  newsFiles_stdWrap.wrap = <dl class="news-single-files">|</dl>
+  newsFilesHeader_stdWrap.wrap = <dt>|</dt>
+  newsFiles {
+    path = uploads/media/
+    icon = 1
+    stdWrap.wrap = <dd>|</dd>
+  }
+
+  # related news by category
+  relatedByCategory_stdWrap.wrap =  <dl class="news-single-related">|</dl>
+  relatedByCategoryHeader_stdWrap.wrap = <dt>|</dt>
+  # globalwrap 2 is used to wrap the list items
+  wrap2.wrap = <dd>|</dd>
+
+
+  # - - - - - - -   Settings for Related News:  - - - - - - - -  #
+
+  useBidirectionalRelations = {$plugin.tx_wecknowledgebase_pi1.useBidirectionalRelations}
+  usePagesRelations = {$plugin.tx_wecknowledgebase_pi1.usePagesRelations}
+
+  related_stdWrap.wrap =  <dl class="news-single-related">|</dl>
+  relatedHeader_stdWrap.wrap = <dt>|</dt>
+
+  # icon for related news
+  tmp.5 = IMAGE
+  tmp.5 {
+    file = EXT:wec_knowledgebase/ext_icon.gif
+    file.width = 11
+    file.height = 12
+    wrap = | &nbsp;
+  }
+
+  # end-wrap for the getRelated objects
+  tmp.20 = TEXT
+  tmp.20 {
+    field = datetime
+    strftime = %d-%m-%y %H:%M
+    wrap = &nbsp;-&nbsp; |
+  }
+
+  # Build the list of related news:
+  getRelatedCObject = COA
+  getRelatedCObject {
+    # groupBy =
+    orderBy = datetime desc
+
+    10=CASE
+    10.key.field=type
+    # settings for 'normal' related news
+    10.default=COA
+
+      10.default {
+        wrap = <dd> | </dd>
+        5 < plugin.tx_wecknowledgebase_pi1.tmp.5
+        10 = TEXT
+        10.field = title
+        10.typolink.parameter = {$plugin.tx_wecknowledgebase_pi1.singlePid}
+        10.typolink.additionalParams.data=register:newsAddParams
+        20 < plugin.tx_wecknowledgebase_pi1.tmp.20
+      }
+	# settings for related news, that point to internal pages
+    10.1=COA
+    10.1 {
+      wrap = <dd> | </dd>
+      5 < plugin.tx_wecknowledgebase_pi1.tmp.5
+      5.file=EXT:wec_knowledgebase/res/wec_knowledgebase_article.gif
+      10 = TEXT
+      10.field = title
+      10.typolink.parameter.field = page
+      20 < plugin.tx_wecknowledgebase_pi1.tmp.20
+    }
+    # settings for related news, that point to external URLs
+    10.2=COA
+    10.2 {
+      wrap = <dd> | </dd>
+      5 < plugin.tx_wecknowledgebase_pi1.tmp.5
+      5.file=EXT:wec_knowledgebase/res/wec_knowledgebase_exturl.gif
+      10 = TEXT
+      10.field = title
+      10.typolink.parameter.field = ext_url
+      20 < plugin.tx_wecknowledgebase_pi1.tmp.20
+    }
+  }
+
+  # pagebrowser for singleview
+  useMultiPageSingleView = {$plugin.tx_wecknowledgebase_pi1.useMultiPageSingleView}
+  maxWordsInSingleView = 0
+
+
+  # - - - - - - - - - - - rendering of SINGLE news   - - - - - - - - - - -  #
+
+  displaySingle {
+    age_stdWrap.age = 1
+    textNewsAge_stdWrap.wrap =
+    date_stdWrap.strftime=  %m/%d/%Y
+    time_stdWrap.strftime= %H:%M
+    title_stdWrap.wrap =
+    subheader_stdWrap.wrap = <h3>|</h3>
+    subheader_stdWrap.trim=1
+    subheader_stdWrap.required=1
+    author_stdWrap.typolink.parameter.field = author_email
+    author_stdWrap.wrap = <p class="news-single-author">|</p>
+
+    addInfo_stdWrap.wrap = <div class="news-single-additional-info"> | </div>
+
+    links_stdWrap.wrap = <dl class="news-single-links">|</dl>
+    linksHeader_stdWrap.wrap = <dt>|</dt>
+    linksItem_stdWrap.wrap = <dd>|</dd>
+
+    imageCount=4
+    imgAltTextField = imagecaption
+    imageWrapIfAny = <div class="news-single-img"> | </div>
+
+    category_stdWrap.wrap = <div class="news-single-category"> | </div>
+    email_stdWrap.setContentToCurrent = 1
+    email_stdWrap.typolink.parameter.current = 1
+    caption_stdWrap.wrap = <p class="news-single-imgcaption"> | </p>
+    caption_stdWrap.trim=1
+    # caption_stdWrap.required=1
+
+    tutorial_stdWrap.wrap = Click to see tutorial for:&nbsp;|<br>
+    tutorial_stdWrap.data = page:title
+    tutorial_stdWrap.typolink {
+    	parameter = {$plugin.tx_wecknowledgebase_pi1.tutorial_pid} 800x600
+    	target = _new
+    	additionalParams.wrap = &src=uploads/tx_wecknowledgebase/|
+        additionalParams.data = field : tx_weckb_tutorial_content
+    }
+  }
+  displaySingle.image {
+    file.maxW = {$plugin.tx_wecknowledgebase_pi1.singleMaxW}
+    file.maxH = {$plugin.tx_wecknowledgebase_pi1.singleMaxH}
+    wrap =
+    imageLinkWrap = 1
+    imageLinkWrap {
+      enable = 1
+      bodyTag = <body bgColor="#ffffff">
+      wrap = <a href="javascript:close();"> | </a>
+      width = 500m
+      height = 500
+      JSwindow = 1
+      JSwindow.newWindow = 1
+      JSwindow.expand = 17,20
+    }
+
+  }
+
+  # - - - - - - - - - - - rendering of LATEST news   - - - - - - - - - - -  #
+  displayLatest {
+    age_stdWrap.age = 1
+    date_stdWrap.strftime= %m/%d/%Y
+    time_stdWrap.strftime= %H:%M
+    caption_stdWrap.if.directReturn = 0
+    subheader_stdWrap.crop = 160 | ... | 1
+    subheader_stdWrap.ifEmpty.field = bodytext
+    imageCount=1
+    imgAltTextField = imagecaption
+    imageWrapIfAny =
+    category_stdWrap.wrap = <div class="news-latest-category"> | </div>
+    categoryItem_stdWrap.wrap =
+
+    linkTitleField = title
+    linkTitleField.wrap =
+    linkAltField = short
+    linkAltField.wrap =
+    xorderBy = datetime desc
+  }
+  displayLatest.image < displaySingle.image
+  displayLatest.image {
+    file.maxW = {$plugin.tx_wecknowledgebase_pi1.latestMaxW}
+    file.maxH = {$plugin.tx_wecknowledgebase_pi1.latestMaxH}
+    imageLinkWrap = 1
+
+    stdWrap.spaceAfter = 0
+  }
+
+  # - - - - - - - - - -    rendering of LIST news    - - - - - - - - - - -  #
+  displayList {
+    age_stdWrap.age = 1
+    textNewsAge_stdWrap.wrap =
+    date_stdWrap.strftime=  %m/%d/%Y
+    time_stdWrap.strftime= %d/%m/%y %H:%M
+
+    # Don't display caption in List view
+    caption_stdWrap.if.directReturn = 0
+
+    title_stdWrap.wrap =
+    subheader_stdWrap.stripHtml = 1
+    subheader_stdWrap.crop = 160 | ... | 1
+    subheader_stdWrap.ifEmpty.field = bodytext
+    author_stdWrap.wrap =
+    imageCount=1
+    imageWrapIfAny =
+
+    category_stdWrap.wrap = <div class="news-list-category"> | </div>
+    imgAltTextField = imagecaption
+
+    linkTitleField = title
+    linkTitleField.wrap =
+    linkAltField = short
+    linkAltField.wrap =
+  }
+  displayList.image < displaySingle.image
+  displayList.image {
+    file.maxW = {$plugin.tx_wecknowledgebase_pi1.listMaxW}
+    file.maxH = {$plugin.tx_wecknowledgebase_pi1.listMaxH}
+    imageLinkWrap = 1
+  }
+  # Example for overriding values from locallang.php with other values
+  _LOCAL_LANG.de {
+    # more = [weiterlesen...]
+  }
+
+  ### KNOWLEDGEBASE SPECIFIC
+
+  # this will remove the complete <p> tag from all news content elements
+  general_stdWrap.parseFunc.nonTypoTagStdWrap.encapsLines.nonWrappedTag >
+
+  #catTextMode = 3
+  useSubCategories = 1
+  limit = 20
+
+  # - - - - - - - - -  CATMENU settings  - - - - - - - - - - - #
+  displayCatMenu {
+ 	mode = nested_kb
+
+    catmenu_stdWrap.wrap = <div class="news-catmenu">|</div>
+    catmenuHeader_stdWrap.wrap = <p class="news-catmenu-header">|</p>
+
+    catmenuItem_ACT_stdWrap.wrap =  |
+    catmenuItem_NO_stdWrap.wrap = <span class="news-catmenu-icon"><img src="typo3conf/ext/wec_knowledgebase/res/folder.gif" alt="Category" /></span> |
+    catmenuItem_UP_stdWrap.wrap = <span class="news-catmenu-icon"><img src="typo3conf/ext/wec_knowledgebase/res/kb_up.gif" alt="Category" /></span> |
+    catmenuLevel1_stdWrap.wrap = <div class="news-catmenu-NO">|</div>
+    catmenuLevel2_stdWrap.wrap = <div class="news-catmenu-NO">|</div>
+    catmenuLevel3_stdWrap.wrap = <div class="news-catmenu-NO">|</div>
+    catmenuLevel4_stdWrap.wrap = <div class="news-catmenu-NO">|</div>
+
+    # 1 = icon from cat record
+    # 2 = own icons
+    # 0 = default icon
+    # -1 = no icon
+    catmenuIconMode = 0
+
+    # if "catmenuIconPath" is set and "catmenuIconMode" is 2 all icons "join","joinbottom" & "line" are expected in this path
+    catmenuIconPath =
+
+    # icon for all categories if "catmenuIconMode" = 2
+    catmenuIconFile = EXT:tt_news/res/arrow.gif
+
+    # icon size for "catmenuIconMode" 1 & 2
+    catmenuIconFile {
+      width = 18
+      height = 16
+    }
+
+    # disables the "root" icon of the category tree if set
+    catmenuNoRootIcon = 1
+
+    insertDescrAsTitle = 1
+
+    # userdefined root icon
+    # catmenuRootIconFile = circle_blue.gif
+
+    # size of the userdefined root icon
+    catmenuRootIconFile {
+      width = 18
+      height = 16
+    }
+  }
+
+  # - - - - - - - - -  CAT DROPDOWN settings  - - - - - - - - - - - #
+  displayCatDropdown {
+ 	mode = dropdown
+    catmenu_stdWrap.wrap = <select name="catdropdown">|</select>
+
+    catmenuItem_ACT_stdWrap.wrap = <option> | </option>
+    catmenuItem_NO_stdWrap.wrap = <option> | </option>
+    catmenuLevel1_stdWrap.wrap =
+    catmenuLevel2_stdWrap.wrap =
+    catmenuLevel3_stdWrap.wrap =
+    catmenuLevel4_stdWrap.wrap =
+    catmenu_stdWrap.wrap >
+  }
+
+  # related news by category
+  relatedByCategory_stdWrap.wrap =  <div class="news-single-related">|</div>
+  relatedByCategoryHeader_stdWrap.wrap = <h3>|</h3>
+
+  _LOCAL_LANG.default.latestHeader = Latest Articles
+  _LOCAL_LANG.default.textRelatedByCategory = Related Articles
+  _LOCAL_LANG.default.textRelated = Related Articles
+  _LOCAL_LANG.default.searchEmptyMsg2 = _LOCAL_LANG.default.searchEmptyMsg
+  _LOCAL_LANG.default.searchEmptyMsg =
+  _LOCAL_LANG.default.noResultsMsg =
+
+  _CSS_DEFAULT_STYLE (
+/*-------------------------- KNOWLEDGE_BASE STYLES ---------------------------*/
+
+	.tx-wecknowledgebase-pi1 .news-list-container h3,
+	.tx-wecknowledgebase-pi1 .news-latest-container h3,
+	.tx-wecknowledgebase-pi1 .news-comment-container h3,
+	.tx-wecknowledgebase-pi1 .news-kb-container h3,
+	.tx-wecknowledgebase-pi1 .news-pop-container h3,
+	.tx-wecknowledgebase-pi1 .news-single-related h3	{
+		font-size: 1em;
+		margin: 2px;
+		margin-top:6px;
+		padding: 2px;
+		background-color: {$plugin.tx_wecknowledgebase_pi1.listHeaderBackColor};
+	}
+	 .tx-wecknowledgebase-pi1 .news-list-item .tiny,
+	 .tx-wecknowledgebase-pi1 .news-latest-item .tiny,
+	 .tx-wecknowledgebase-pi1 .news-pop-item .tiny {
+		font-size: .75em;
+		color: {$plugin.tx_wecknowledgebase_pi1.catItemTinyColor};
+	}
+	 .tx-wecknowledgebase-pi1 .news-latest-item h3,
+	 .tx-wecknowledgebase-pi1 .news-list-item h3,
+	 .tx-wecknowledgebase-pi1 .news-pop-item h3 {
+ 		font-size: 1em;
+		font-weight: normal;
+		background-repeat: no-repeat;
+		background-position: left top;
+		background-color: transparent;
+		display: block;
+		padding-left: 20px !important;
+	}
+	 .tx-wecknowledgebase-pi1 .news-list-item h3 {
+		background-image: url("{$plugin.tx_wecknowledgebase_pi1.normalListIcon}");
+	 }
+	 .tx-wecknowledgebase-pi1 .news-latest-item h3 {
+		background-image: url("{$plugin.tx_wecknowledgebase_pi1.latestListIcon}");
+	 }
+	 .tx-wecknowledgebase-pi1 .news-pop-item h3 {
+		background-image: url("{$plugin.tx_wecknowledgebase_pi1.popularListIcon}");
+	 }
+
+	 .tx-wecknowledgebase-pi1 .news-list-item  .bodytext,
+	 .tx-wecknowledgebase-pi1 .news-pop-item  .bodytext,
+	 .tx-wecknowledgebase-pi1 .news-latest-item .bodytext {
+	 	margin: 0px;
+	 	padding-bottom: 2px;
+ 	}
+
+	 .tx-wecknowledgebase-pi1 .news-catmenu {
+		float:	left;
+		width:  100%;
+		padding: 0px;
+		padding-left:   4px
+		padding-bottom: 6px;
+		margin: 0px;
+		clear: both;
+	}
+	 .tx-wecknowledgebase-pi1 .news-catmenu-NO {
+		float: 			left;
+		width:			{$plugin.tx_wecknowledgebase_pi1.catMenuWidth};
+		margin-bottom:  3px;
+	}
+	 .tx-wecknowledgebase-pi1 .news-catmenu-icon {
+		padding-right:	6px;
+	}
+	news-catmenu-icon
+	 .tx-wecknowledgebase-pi1 .news-single-related h3.header {
+		font-size: 1.2em;
+		display: block;
+		width: auto;
+		border-bottom: 1px dotted #ccc;
+		margin-top: 5px;
+		margin-bottom: 10px;
+		padding-bottom: 5px;
+	}
+	 .tx-wecknowledgebase-pi1 .news-single-related {
+		margin-top: 20px;
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-single-item {
+	 	clear:	both;
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-comment-container {
+		display: block;
+		margin-top: 15px;
+		margin-bottom:10px;
+		padding:	0px;
+	}
+	 .tx-wecknowledgebase-pi1 .news-comment-item {
+		width:		550px;
+		background-color: {$plugin.tx_wecknowledgebase_pi1.commentItemBackColor};
+		border: 	1px solid #333;
+		margin: 	0px auto;
+		margin-bottom:4px;
+		margin-top:	4px;
+		padding:	5px;
+		padding-bottom:1px;
+		font-size:  1em;
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-tutorial-menu {
+	 	margin: 4px;
+	 	padding: 4px;
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-form {
+		width: 550px;
+		background-color: {$plugin.tx_wecknowledgebase_pi1.formBackColor};
+		border: 1px solid #333;
+		margin: 0px auto;
+		padding:	5px;
+		padding-bottom: 0px;
+		margin-top:10px;
+		margin-bottom:5px;
+		font-size:	0.9em;
+	}
+	 .tx-wecknowledgebase-pi1 .news-form-label {
+		float:		left;
+		width:		25%;
+		text-align:	right;
+		margin-right:10px;
+		font-size:	0.9em;
+	}
+	 .tx-wecknowledgebase-pi1 .news-form-input {
+		float:		left;
+		width:		70%;
+		text-align:	left;
+		margin-bottom:5px;
+		font-size:	0.9em;
+	}
+	 .tx-wecknowledgebase-pi1 .news-form-textacross {
+		float:		left;
+		width:		100%;
+		text-align:	center;
+		font-size:	0.9em;
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-button a,  .tx-wecknowledgebase-pi1 .news-button a:active,
+	 .tx-wecknowledgebase-pi1 .news-button a:link,  .tx-wecknowledgebase-pi1 .news-button a:visited {
+		display:		inline;
+	    font-family: 	arial, tahoma, sans-serif;
+		font-size:		0.8em;
+		padding: 		3px;
+	    margin:         3px;
+	    margin-top:     5px;
+		border: 		1px #aaa solid;
+		background-color:{$plugin.tx_wecknowledgebase_pi1.btnBackColor};
+		color: 			{$plugin.tx_wecknowledgebase_pi1.btnColor};
+		text-decoration: none;
+	}
+	 .tx-wecknowledgebase-pi1 .news-button a:hover {
+		border: 		1px #ccc solid;
+		background-color: {$plugin.tx_wecknowledgebase_pi1.btnHoverBackColor};
+		color: 			{$plugin.tx_wecknowledgebase_pi1.btnColor};
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-sidebar {
+		float: 		right;
+		width:		130px;
+		margin: 	4px;
+		margin-right: 0px;
+		padding: 	0px;
+		padding-bottom:10px;
+		border: 	1px solid #888;
+		background-color: {$plugin.tx_wecknowledgebase_pi1.sidebarBackColor};
+		text-align:	center;
+	}
+	 .tx-wecknowledgebase-pi1 .news-sidebar-links {
+		margin:			4px;
+		margin-top:		8px;
+	}
+	 .tx-wecknowledgebase-pi1 .news-sidebar-links a {
+		font-family:	arial, tahoma, sans-serif;
+		font-size: 		0.8em;
+		padding:		2px;
+		text-decoration: none;
+		color:			black;
+	}
+	 .tx-wecknowledgebase-pi1 .news-sidebar-header {
+		font-family:	arial, tahoma, sans-serif;
+		font-size: 		1em;
+		padding:		2px;
+		margin:			0px;
+		color:			black;
+		background-color: {$plugin.tx_wecknowledgebase_pi1.sidebarHeaderBackColor};
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-search-form {
+		float:	left;
+		width:	45%;
+		margin-bottom: 4px;
+		padding-right: 10px;
+	}
+	 .tx-wecknowledgebase-pi1 .news-search-emptyMsg {
+	    display: none;
+	}
+
+	 .tx-wecknowledgebase-pi1 .news-catdropdown {
+		float:   left;
+		width:	50%;
+		margin-bottom:10px;
+		padding-right:10px;
+	}
+	 .tx-wecknowledgebase-pi1 .news-actionbar {
+		text-align:	center;
+		font-size:	10px;
+		padding:	4px;
+		padding-bottom:8px;
+	}
+	 .tx-wecknowledgebase-pi1 .news-single-backlink {
+	 	margin-top: 10px;
+	 	clear:		both;
+		font-size:	12px;
+	}
+
+	.tx-wecknowledgebase-pi1 .news-version-info {
+		margin:		0px;
+		margin-left: 20px;
+		margin-bottom: 10px;
+		font-size:	0.85em;
+		color:		#888;
+	}
+
+	.tx-wecknowledgebase-pi1 .alert {
+		width:		100%;
+		color:		#f00;
+		font-weight: bold;
+		font-size:	105%;
+		padding:	2px;
+	}
+
+  )
+}
+
+
+# - - - - - - - - - -  display Archive in yearly periods - - - - - - - - -  #
+
+# include the amenu script
+#includeLibs.newsAmenuUserFunc = EXT:wec_knowledgebase/res/news_amenuUserFunc2.php
+# call user function
+#plugin.tx-wecknowledgebase-pi1.newsAmenuUserFunc = user_processAmenu
+
+
+# - - -  This enables the tt_content.record item to display news items - -  #
+#tx-wecknowledgebase-pi1 >
+#tx-wecknowledgebase-pi1 = < plugin.tx-wecknowledgebase-pi1
+#tx-wecknowledgebase-pi1.displayCurrentRecord = 1
+
